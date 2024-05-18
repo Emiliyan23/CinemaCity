@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaCity", "CinemaCity\CinemaCity.csproj", "{312ECEB9-83E0-4FAA-86B7-265CF719450B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaCity", "CinemaCity\CinemaCity.csproj", "{312ECEB9-83E0-4FAA-86B7-265CF719450B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{1336391B-0F77-4DA6-80B9-71599A6D36BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaCity.Data", "CinemaCity.Data\CinemaCity.Data.csproj", "{A5A4C56B-0EEF-4CA3-BC1A-9E98B5ABE77B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaCity.Data", "CinemaCity.Data\CinemaCity.Data.csproj", "{A5A4C56B-0EEF-4CA3-BC1A-9E98B5ABE77B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaCity.Data.Models", "CinemaCity.Data.Models\CinemaCity.Data.Models.csproj", "{C2209F91-1867-4355-9946-3A7E5208AA1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaCity.Data.Models", "CinemaCity.Data.Models\CinemaCity.Data.Models.csproj", "{C2209F91-1867-4355-9946-3A7E5208AA1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CinemaCity.Common", "CinemaCity.Common\CinemaCity.Common.csproj", "{E9A6F2F9-AF51-40F4-845F-7C4E6D84B001}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CinemaCity.Common", "CinemaCity.Common\CinemaCity.Common.csproj", "{E9A6F2F9-AF51-40F4-845F-7C4E6D84B001}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{35D14011-535C-4C30-868B-9432611F56A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
