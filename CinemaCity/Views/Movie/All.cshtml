@@ -10,5 +10,6 @@
 	<div>
 		<h2>@movie.Title</h2>
 		<img src="@movie.ImagePath" alt="@movie.Title" />
+		<a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-success">Details</a>
 	</div>
 }

@@ -1,9 +1,9 @@
 ﻿namespace CinemaCity.Controllers
 {
+    using Web.ViewModels.Movie;
     using Microsoft.AspNetCore.Mvc;
 
     using Services.Interfaces;
-    using Web.ViewModels;
 
     public class MovieController : Controller
     {
@@ -20,6 +20,18 @@
             List<MovieViewModel> movies = await _movieService.GetMovies();
 
             return View(movies);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+	        MovieDetailsModel? movie = await _movieService.GetMovieDetails(id);
+	        if (movie == null)
+	        {
+		        return RedirectToAction("All");
+	        }
+
+	        return View(movie);
         }
     }
 }

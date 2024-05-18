@@ -18,5 +18,25 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: rgba(47, 47, 47, 1);
+}
+
+p, h1, h2, label {
+    color: white;
+}
+
+.form-control {
+    background-color: rgba(47, 47, 47, 1);
+    border-color: rgba(47, 47, 47, 1);
+}
+
+.form-control:focus {
+    background-color: rgba(47, 47, 47, 1);
+    border-color: rgba(47, 47, 47, 1);
+    box-shadow: 0 0 0 0.1rem rgba(130, 40, 40, 0.75);
+}
+
+.card {
+    background-color: rgba(76, 76, 76, 1);
 }

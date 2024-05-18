@@ -1,11 +1,11 @@
 ﻿namespace CinemaCity.Services
 {
+    using Web.ViewModels.Movie;
     using Data;
     using Interfaces;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
     using Web.Infrastructure;
-    using Web.ViewModels;
 
     public class MovieService : IMovieService
     {
@@ -37,7 +37,35 @@
             return movieModels;
         }
 
-        private string GetMovieImagePath(int movieId)
+        public async Task<MovieDetailsModel?> GetMovieDetails(int movieId)
+        {
+	        var movie = await _context.Movies
+		        .Include(movie => movie.Genre)
+		        .FirstOrDefaultAsync(m => m.Id == movieId);
+
+	        if (movie == null)
+	        {
+		        return null;
+			}
+
+			MovieDetailsModel movieDetails = new MovieDetailsModel
+	        {
+		        Id = movie.Id,
+		        Title = movie.Title,
+		        Audio = movie.Audio,
+		        Category = movie.Category,
+		        Description = movie.Description,
+		        Duration = movie.Duration,
+		        Genre = movie.Genre.Name,
+		        Rating = movie.Rating,
+		        Subtitles = movie.Subtitles,
+		        ImagePath = GetMovieImagePath(movieId)
+	        };
+
+	        return movieDetails;
+        }
+
+		private string GetMovieImagePath(int movieId)
         {
             string imageFileName = $"{movieId}.jpg";
             string imagePath = Path.Combine(_movieImagesFolderPath, imageFileName);

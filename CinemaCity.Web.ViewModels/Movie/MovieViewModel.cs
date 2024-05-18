@@ -1,4 +1,4 @@
-﻿namespace CinemaCity.Web.ViewModels
+﻿namespace CinemaCity.Web.ViewModels.Movie
 {
     public class MovieViewModel
     {
