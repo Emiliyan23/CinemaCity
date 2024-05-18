@@ -1,8 +1,10 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using CinemaCity.Data;
 using CinemaCity.Data.Models;
+using CinemaCity.Services;
+using CinemaCity.Services.Interfaces;
+using CinemaCity.Web.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<CinemaCityContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.Configure<MovieSettings>(builder.Configuration.GetSection("MovieSettings"));
+builder.Services.AddScoped<IMovieService, MovieService>();
+
 
 var app = builder.Build();
 

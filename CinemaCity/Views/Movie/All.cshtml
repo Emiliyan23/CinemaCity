@@ -1,0 +1,14 @@
+﻿@model List<MovieViewModel>
+@{
+	ViewData["Title"] = "All Movies";
+}
+
+<p>@ViewData["Title"]</p>
+
+@foreach (var movie in Model)
+{
+	<div>
+		<h2>@movie.Title</h2>
+		<img src="@movie.ImagePath" alt="@movie.Title" />
+	</div>
+}
