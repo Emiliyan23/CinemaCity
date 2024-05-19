@@ -29,7 +29,7 @@
         public string Category { get; set; } = null!;
 
         [Required]
-        public float Rating { get; set; }
+        public double Rating { get; set; }
 
         public DateTime ReleaseDate { get; set; }
 

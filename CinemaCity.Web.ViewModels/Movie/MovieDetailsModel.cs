@@ -1,6 +1,8 @@
 ﻿namespace CinemaCity.Web.ViewModels.Movie
 {
-	public class MovieDetailsModel
+    using Cinema;
+
+    public class MovieDetailsModel
 	{
 		public int Id { get; set; }
 
@@ -14,12 +16,14 @@
 
 		public string Category { get; set; } = null!;
 
-		public float Rating { get; set; }
+		public double Rating { get; set; }
 
 		public string Subtitles { get; set; } = null!;
 
 		public string Genre { get; set; } = null!;
 
 		public string ImagePath { get; set; } = null!;
-	}
+
+        public List<CinemaViewModel> Cinemas { get; set; } = new List<CinemaViewModel>();
+    }
 }

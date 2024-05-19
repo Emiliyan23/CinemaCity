@@ -5,3 +5,4 @@
 <p>@Model.Title</p>
 <p>@Model.Description</p>
 <img src="@Model.ImagePath" alt="@Model.Title" />
+<a asp-controller="Booking" asp-action="SelectTickets" asp-route-id="@Model.Id" class="btn btn-success">Book now</a>

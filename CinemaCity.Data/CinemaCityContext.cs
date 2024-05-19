@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
+    using Configurations;
     using Models;
 
     public class CinemaCityContext : IdentityDbContext<ApplicationUser>
@@ -10,7 +11,6 @@
         public CinemaCityContext(DbContextOptions<CinemaCityContext> options)
             : base(options)
         {
-            
         }
 
         public CinemaCityContext()
@@ -33,6 +33,11 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfiguration(new CinemaConfiguration());
+            builder.ApplyConfiguration(new GenreConfiguration());
+            builder.ApplyConfiguration(new ScreenConfiguration());
+            builder.ApplyConfiguration(new MovieConfiguration());
+
             builder.Entity<Screen>()
                 .HasOne(s => s.Cinema)
                 .WithMany(c => c.Screens)

@@ -1,6 +1,6 @@
 ﻿namespace CinemaCity.Common
 {
-    public class WebConstants
+    public static class WebConstants
     {
     }
 }
