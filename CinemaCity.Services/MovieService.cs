@@ -74,7 +74,7 @@
                         Showtimes = g.Select(st => new ShowtimeViewModel
                         {
                             Id = st.Id,
-                            StartTime = st.StartTime,
+                            StartTime = st.StartTime
                         }).ToList()
                     }).ToList()
             };

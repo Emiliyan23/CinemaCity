@@ -18,6 +18,6 @@
 
         public int ColumnNumber { get; set; }
 
-        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+        public ICollection<BookingSeat> BookingSeats { get; set; } = new List<BookingSeat>();
     }
 }

@@ -24,6 +24,6 @@
         [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; } = null!;
 
-        public ICollection<Seat> Seats { get; set; } = null!;
+        public ICollection<BookingSeat> BookingSeats { get; set; } = new List<BookingSeat>();
     }
 }

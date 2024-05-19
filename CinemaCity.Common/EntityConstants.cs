@@ -13,8 +13,8 @@
 
         public const int GenreNameMaxLen = 30;
 
-        public const int ScreenTypeMaxLen = 10;
-
         public const int UserIdMaxLen = 450;
+
+        public const int TicketTypeMaxLen = 20;
     }
 }

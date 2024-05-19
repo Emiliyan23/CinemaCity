@@ -29,12 +29,17 @@
 
         public DbSet<Showtime> Showtimes { get; set; }
 
+        public DbSet<BookingSeat> BookingSeats { get; set; }
+
+        public DbSet<TicketType> TicketTypes { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new CinemaConfiguration());
             builder.ApplyConfiguration(new GenreConfiguration());
-            //builder.ApplyConfiguration(new ScreenConfiguration());
             builder.ApplyConfiguration(new MovieConfiguration());
+            builder.ApplyConfiguration(new ShowtimeConfiguration());
+            builder.ApplyConfiguration(new TicketTypeConfiguration());
 
             builder.Entity<Showtime>()
                 .HasOne(st => st.Movie)
@@ -56,26 +61,33 @@
                 .WithMany(st => st.Bookings)
                 .HasForeignKey(b => b.ShowtimeId);
 
-            builder.Entity<Seat>()
-                .HasMany(s => s.Bookings)
-                .WithMany(b => b.Seats)
-                .UsingEntity<Dictionary<string, object>>(
-                    "BookingSeat",
-                    bs => bs.HasOne<Booking>()
-                        .WithMany()
-                        .HasForeignKey("BookingId")
-                        .OnDelete(DeleteBehavior.Restrict),
-                    bs => bs.HasOne<Seat>()
-                        .WithMany()
-                        .HasForeignKey("SeatId")
-                        .OnDelete(DeleteBehavior.Restrict));
-
             builder.Entity<Movie>()
                 .HasOne(m => m.Genre)
                 .WithMany(g => g.Movies)
                 .HasForeignKey(m => m.GenreId);
 
-            base.OnModelCreating(builder);
+            builder.Entity<BookingSeat>()
+	            .HasKey(bs => new { bs.BookingId, bs.SeatId });
+
+            builder.Entity<BookingSeat>()
+	            .HasOne(bs => bs.Seat)
+	            .WithMany(s => s.BookingSeats)
+	            .HasForeignKey(bs => bs.SeatId)
+	            .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<BookingSeat>()
+	            .HasOne(bs => bs.Booking)
+	            .WithMany(b => b.BookingSeats)
+	            .HasForeignKey(bs => bs.BookingId)
+	            .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<BookingSeat>()
+	            .HasOne(bs => bs.TicketType)
+	            .WithMany(tt => tt.BookingSeats)
+	            .HasForeignKey(bs => bs.TicketTypeId)
+	            .OnDelete(DeleteBehavior.Restrict);
+
+			base.OnModelCreating(builder);
         }
     }
 }

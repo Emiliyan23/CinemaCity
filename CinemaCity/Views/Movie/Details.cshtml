@@ -5,4 +5,22 @@
 <p>@Model.Title</p>
 <p>@Model.Description</p>
 <img src="@Model.ImagePath" alt="@Model.Title" />
-<a asp-controller="Booking" asp-action="SelectTickets" asp-route-id="@Model.Id" class="btn btn-success">Book now</a>
+@if (!Model.Cinemas.Any())
+{
+	<p>This movie is not currently available.</p>
+}
+else
+{
+	@foreach (var cinema in Model.Cinemas)
+	{
+		<h2>@cinema.Name</h2>
+		<p>@cinema.Location</p>
+		<p>Showtimes:</p>
+		@foreach (var showtime in cinema.Showtimes)
+		{
+			<p>@showtime.StartTime</p>
+			<a asp-controller="Booking" asp-action="SelectTickets" asp-route-id="@showtime.Id" class="btn btn-success">Book now</a>
+		}
+		<hr/>
+	}
+}

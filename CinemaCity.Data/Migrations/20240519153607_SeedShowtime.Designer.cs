@@ -4,6 +4,7 @@ using CinemaCity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaCity.Data.Migrations
 {
     [DbContext(typeof(CinemaCityContext))]
-    partial class CinemaCityContextModelSnapshot : ModelSnapshot
+    [Migration("20240519153607_SeedShowtime")]
+    partial class SeedShowtime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,21 @@ namespace CinemaCity.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BookingSeat", b =>
+                {
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BookingId", "SeatId");
+
+                    b.HasIndex("SeatId");
+
+                    b.ToTable("BookingSeat");
+                });
 
             modelBuilder.Entity("CinemaCity.Data.Models.ApplicationUser", b =>
                 {
@@ -113,26 +131,6 @@ namespace CinemaCity.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
-                });
-
-            modelBuilder.Entity("CinemaCity.Data.Models.BookingSeat", b =>
-                {
-                    b.Property<int>("BookingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SeatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookingId", "SeatId");
-
-                    b.HasIndex("SeatId");
-
-                    b.HasIndex("TicketTypeId");
-
-                    b.ToTable("BookingSeats");
                 });
 
             modelBuilder.Entity("CinemaCity.Data.Models.Cinema", b =>
@@ -439,53 +437,6 @@ namespace CinemaCity.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CinemaCity.Data.Models.TicketType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TicketTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Price = 16.5,
-                            Type = "Adult"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Price = 13.0,
-                            Type = "Child or student"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Price = 13.0,
-                            Type = "Elderly"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Price = 13.0,
-                            Type = "Disabled"
-                        });
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -623,6 +574,21 @@ namespace CinemaCity.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BookingSeat", b =>
+                {
+                    b.HasOne("CinemaCity.Data.Models.Booking", null)
+                        .WithMany()
+                        .HasForeignKey("BookingId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CinemaCity.Data.Models.Seat", null)
+                        .WithMany()
+                        .HasForeignKey("SeatId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CinemaCity.Data.Models.Booking", b =>
                 {
                     b.HasOne("CinemaCity.Data.Models.Showtime", "Showtime")
@@ -640,33 +606,6 @@ namespace CinemaCity.Data.Migrations
                     b.Navigation("Showtime");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("CinemaCity.Data.Models.BookingSeat", b =>
-                {
-                    b.HasOne("CinemaCity.Data.Models.Booking", "Booking")
-                        .WithMany("BookingSeats")
-                        .HasForeignKey("BookingId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CinemaCity.Data.Models.Seat", "Seat")
-                        .WithMany("BookingSeats")
-                        .HasForeignKey("SeatId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CinemaCity.Data.Models.TicketType", "TicketType")
-                        .WithMany("BookingSeats")
-                        .HasForeignKey("TicketTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Booking");
-
-                    b.Navigation("Seat");
-
-                    b.Navigation("TicketType");
                 });
 
             modelBuilder.Entity("CinemaCity.Data.Models.Movie", b =>
@@ -766,11 +705,6 @@ namespace CinemaCity.Data.Migrations
                     b.Navigation("Bookings");
                 });
 
-            modelBuilder.Entity("CinemaCity.Data.Models.Booking", b =>
-                {
-                    b.Navigation("BookingSeats");
-                });
-
             modelBuilder.Entity("CinemaCity.Data.Models.Cinema", b =>
                 {
                     b.Navigation("Seats");
@@ -788,19 +722,9 @@ namespace CinemaCity.Data.Migrations
                     b.Navigation("Showtimes");
                 });
 
-            modelBuilder.Entity("CinemaCity.Data.Models.Seat", b =>
-                {
-                    b.Navigation("BookingSeats");
-                });
-
             modelBuilder.Entity("CinemaCity.Data.Models.Showtime", b =>
                 {
                     b.Navigation("Bookings");
-                });
-
-            modelBuilder.Entity("CinemaCity.Data.Models.TicketType", b =>
-                {
-                    b.Navigation("BookingSeats");
                 });
 #pragma warning restore 612, 618
         }
