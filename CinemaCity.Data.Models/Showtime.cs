@@ -16,10 +16,10 @@
         [ForeignKey(nameof(MovieId))]
         public Movie Movie { get; set; } = null!;
 
-        public int ScreenId { get; set; }
+        public int CinemaId { get; set; }
 
-        [ForeignKey(nameof(ScreenId))]
-        public Screen Screen { get; set; } = null!;
+        [ForeignKey(nameof(CinemaId))]
+        public Cinema Cinema { get; set; } = null!;
 
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
     }

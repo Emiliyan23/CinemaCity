@@ -2,10 +2,13 @@
 {
     using Web.ViewModels.Movie;
     using Data;
+    using Data.Models;
     using Interfaces;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
     using Web.Infrastructure;
+    using Web.ViewModels.Cinema;
+    using Web.ViewModels.Showtime;
 
     public class MovieService : IMovieService
     {
@@ -59,8 +62,22 @@
 		        Genre = movie.Genre.Name,
 		        Rating = movie.Rating,
 		        Subtitles = movie.Subtitles,
-		        ImagePath = GetMovieImagePath(movieId)
-	        };
+		        ImagePath = GetMovieImagePath(movieId),
+                Cinemas = _context.Showtimes
+                    .Where(s => s.MovieId == movie.Id)
+                    .GroupBy(s => s.Cinema)
+                    .Select(g => new CinemaViewModel
+                    {
+                        Id = g.Key.Id,
+                        Name = g.Key.CinemaName,
+                        Location = g.Key.Location,
+                        Showtimes = g.Select(st => new ShowtimeViewModel
+                        {
+                            Id = st.Id,
+                            StartTime = st.StartTime,
+                        }).ToList()
+                    }).ToList()
+            };
 
 	        return movieDetails;
         }

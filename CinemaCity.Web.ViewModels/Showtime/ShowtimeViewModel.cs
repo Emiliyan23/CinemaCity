@@ -6,6 +6,6 @@
 
         public DateTime StartTime { get; set; }
 
-        public int ScreenNumber { get; set; }
+        public string ScreenType { get; set; } = null!;
     }
 }

@@ -27,11 +27,13 @@ p, h1, h2, label {
 }
 
 .form-control {
+    color: white;
     background-color: rgba(47, 47, 47, 1);
     border-color: rgba(47, 47, 47, 1);
 }
 
 .form-control:focus {
+    color: white;
     background-color: rgba(47, 47, 47, 1);
     border-color: rgba(47, 47, 47, 1);
     box-shadow: 0 0 0 0.1rem rgba(130, 40, 40, 0.75);

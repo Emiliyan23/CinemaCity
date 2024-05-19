@@ -1,6 +1,6 @@
 ﻿namespace CinemaCity.Web.ViewModels.Cinema
 {
-    using Screen;
+    using Showtime;
 
     public class CinemaViewModel
     {
@@ -10,6 +10,6 @@
 
         public string Location { get; set; } = null!;
 
-        public List<ScreenViewModel> Screens { get; set; } = new List<ScreenViewModel>();
+        public List<ShowtimeViewModel> Showtimes { get; set; } = new List<ShowtimeViewModel>();
     }
 }

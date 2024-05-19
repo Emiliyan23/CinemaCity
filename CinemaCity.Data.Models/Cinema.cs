@@ -17,6 +17,9 @@
         [MaxLength(CinemaLocationMaxLen)]
         public string Location { get; set; } = null!;
 
-        public ICollection<Screen> Screens { get; set; } = new List<Screen>();
+        public ICollection<Showtime> Showtimes { get; set; } = new List<Showtime>();
+
+        public ICollection<Seat> Seats { get; set; } = new List<Seat>();
+
     }
 }

@@ -25,8 +25,6 @@
 
         public DbSet<Movie> Movies { get; set; }
 
-        public DbSet<Screen> Screens { get; set; }
-
         public DbSet<Seat> Seats { get; set; }
 
         public DbSet<Showtime> Showtimes { get; set; }
@@ -35,13 +33,8 @@
         {
             builder.ApplyConfiguration(new CinemaConfiguration());
             builder.ApplyConfiguration(new GenreConfiguration());
-            builder.ApplyConfiguration(new ScreenConfiguration());
+            //builder.ApplyConfiguration(new ScreenConfiguration());
             builder.ApplyConfiguration(new MovieConfiguration());
-
-            builder.Entity<Screen>()
-                .HasOne(s => s.Cinema)
-                .WithMany(c => c.Screens)
-                .HasForeignKey(s => s.CinemaId);
 
             builder.Entity<Showtime>()
                 .HasOne(st => st.Movie)
@@ -49,14 +42,14 @@
                 .HasForeignKey(st => st.MovieId);
 
             builder.Entity<Showtime>()
-                .HasOne(st => st.Screen)
-                .WithMany(s => s.Showtimes)
-                .HasForeignKey(st => st.ScreenId);
+                .HasOne(st => st.Cinema)
+                .WithMany(c => c.Showtimes)
+                .HasForeignKey(st => st.CinemaId);
 
             builder.Entity<Seat>()
-                .HasOne(se => se.Screen)
+                .HasOne(se => se.Cinema)
                 .WithMany(s => s.Seats)
-                .HasForeignKey(se => se.ScreenId);
+                .HasForeignKey(se => se.CinemaId);
 
             builder.Entity<Booking>()
                 .HasOne(b => b.Showtime)
