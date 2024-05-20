@@ -2,16 +2,16 @@
 {
 	using System.ComponentModel.DataAnnotations.Schema;
 
-	public class BookingSeat
+	public class BookingTicket
 	{
 		public int BookingId { get; set; }
 
 		[ForeignKey(nameof(BookingId))]
 		public Booking Booking { get; set; } = null!;
 
-		public int SeatId { get; set; }
+		public int TicketTypeId { get; set; }
 
-		[ForeignKey(nameof(SeatId))]
-		public Seat Seat { get; set; } = null!;
+		[ForeignKey(nameof(TicketTypeId))]
+		public TicketType TicketType { get; set; } = null!;
 	}
 }

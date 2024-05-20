@@ -2,7 +2,6 @@
 {
     using Web.ViewModels.Movie;
     using Data;
-    using Data.Models;
     using Interfaces;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;

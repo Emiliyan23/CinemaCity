@@ -31,6 +31,8 @@
 
         public DbSet<BookingSeat> BookingSeats { get; set; }
 
+        public DbSet<BookingTicket> BookingTickets { get; set; }
+
         public DbSet<TicketType> TicketTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -81,11 +83,8 @@
 	            .HasForeignKey(bs => bs.BookingId)
 	            .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<BookingSeat>()
-	            .HasOne(bs => bs.TicketType)
-	            .WithMany(tt => tt.BookingSeats)
-	            .HasForeignKey(bs => bs.TicketTypeId)
-	            .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<BookingTicket>()
+	            .HasKey(bt => new { bt.BookingId, bt.TicketTypeId });
 
 			base.OnModelCreating(builder);
         }
