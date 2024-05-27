@@ -4,7 +4,9 @@
 
 	public class BookingFormModel
 	{
-		public List<int> TicketsIds { get; set; } = new List<int>();
+		public string UserId { get; set; } = null!;
+
+		public List<int> SelectedTicketsIds { get; set; } = new List<int>();
 
 		public List<TicketViewModel> Tickets { get; set; } = new List<TicketViewModel>();
 	}

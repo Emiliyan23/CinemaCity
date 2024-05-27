@@ -26,6 +26,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.Configure<MovieSettings>(builder.Configuration.GetSection("MovieSettings"));
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 
 var app = builder.Build();
@@ -47,6 +48,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

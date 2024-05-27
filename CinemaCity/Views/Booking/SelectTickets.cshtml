@@ -1,1 +1,53 @@
-﻿
+﻿@model BookingFormModel
+
+<form method="post">
+	<div class="form-group">
+		<h2>Select Ticket Types</h2>
+		<table class="table table-dark table-striped table-">
+			<thead>
+			<tr>
+				<th scope="col">Type</th>
+				<th scope="col">Price</th>
+				<th scope="col">Quantity</th>
+			</tr>
+			</thead>
+			<tbody>
+			@for (int i = 0; i < Model.Tickets.Count; i++)
+			{
+				<tr>
+					<th scope="row">@Model.Tickets[i].Type</th>
+					<td>@Model.Tickets[i].Price.ToString("F") лв.</td>
+					<td>
+						<input type="hidden" name="SelectedTicketTypes[@i].TicketTypeId" value="@Model.Tickets[i].Id"/>
+						<input type="number" name="SelectedTicketTypes[@i].Quantity" value="0" min="0" max="10" data-price="@Model.Tickets[i].Price" onchange="calculateTotalPrice()"/>
+					</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	</div>
+	<h2>Total price: <span id="total-price">0.00</span> лв.</h2>
+	<input class="btn" type="submit" value="Continue"/>
+</form>
+
+@section Scripts
+{
+	<script>
+		function calculateTotalPrice() {
+			var totalPrice = 0;
+			var quantityInputs = document.querySelectorAll('input[type="number"][name^="SelectedTicketTypes"]')
+
+			quantityInputs.forEach(function (input) {
+				var quantity = parseInt(input.value);
+				var price = parseFloat(input.getAttribute('data-price'));
+
+				if (!isNaN(quantity) && quantity > 0 && !isNaN(price)) {
+					totalPrice += quantity * price;
+				}
+			});
+
+			document.getElementById('total-price').innerText = totalPrice.toFixed(2);
+		}
+		
+	</script>
+}

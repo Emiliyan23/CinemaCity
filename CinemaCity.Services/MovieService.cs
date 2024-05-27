@@ -1,15 +1,16 @@
 ﻿namespace CinemaCity.Services
 {
-    using Web.ViewModels.Movie;
-    using Data;
-    using Interfaces;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
-    using Web.Infrastructure;
-    using Web.ViewModels.Cinema;
-    using Web.ViewModels.Showtime;
 
-    public class MovieService : IMovieService
+    using Data;
+    using Interfaces;
+	using Web.Infrastructure;
+    using Web.ViewModels.Cinema;
+    using Web.ViewModels.Movie;
+	using Web.ViewModels.Showtime;
+
+	public class MovieService : IMovieService
     {
 	    private readonly string _movieImagesFolderPath;
         private readonly CinemaCityContext _context;
@@ -39,7 +40,12 @@
             return movieModels;
         }
 
-        public async Task<MovieDetailsModel?> GetMovieDetails(int movieId)
+		/// <summary>
+		/// Asynchronously finds and returns details for a movie given an id.
+		/// </summary>
+		/// <param name="movieId"></param>
+		/// <returns>MovieDetailsModel for displaying. If the id doesn't exist, returns null.</returns>
+		public async Task<MovieDetailsModel?> GetMovieDetails(int movieId)
         {
 	        var movie = await _context.Movies
 		        .Include(movie => movie.Genre)
