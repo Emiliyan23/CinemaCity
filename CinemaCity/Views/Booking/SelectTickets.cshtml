@@ -2,8 +2,9 @@
 
 <form method="post">
 	<div class="form-group">
-		<h2>Select Ticket Types</h2>
-		<table class="table table-dark table-striped table-">
+		<h2>Select tickets for @Model.MovieTitle</h2>
+		<img src="@Model.ImagePath" alt="@Model.MovieTitle" />
+		<table class="table table-dark table-striped">
 			<thead>
 			<tr>
 				<th scope="col">Type</th>
@@ -12,14 +13,19 @@
 			</tr>
 			</thead>
 			<tbody>
-			@for (int i = 0; i < Model.Tickets.Count; i++)
+			@for (int i = 0; i < Model.TicketTypes.Count; i++)
 			{
 				<tr>
-					<th scope="row">@Model.Tickets[i].Type</th>
-					<td>@Model.Tickets[i].Price.ToString("F") лв.</td>
+					<th scope="row">@Model.TicketTypes[i].Type</th>
+					<td>@Model.TicketTypes[i].Price.ToString("F") лв.</td>
 					<td>
-						<input type="hidden" name="SelectedTicketTypes[@i].TicketTypeId" value="@Model.Tickets[i].Id"/>
-						<input type="number" name="SelectedTicketTypes[@i].Quantity" value="0" min="0" max="10" data-price="@Model.Tickets[i].Price" onchange="calculateTotalPrice()"/>
+						<input type="hidden" asp-for="SelectedTickets.SelectedTickets[i].TicketId" value="@Model.TicketTypes[i].Id"/>
+						<select asp-for="SelectedTickets.SelectedTickets[i].Quantity" data-price="@Model.TicketTypes[i].Price" onchange="calculateTotalPrice()">
+							@for (int j = 0; j <= 10; j++)
+							{
+								<option value="@j">@j</option>
+							}
+						</select>
 					</td>
 				</tr>
 			}
@@ -27,6 +33,31 @@
 		</table>
 	</div>
 	<h2>Total price: <span id="total-price">0.00</span> лв.</h2>
+	<input type="hidden" asp-for="MovieTitle"/>
+	<input type="hidden" asp-for="ShowtimeId"/>
+	<input type="hidden" asp-for="ImagePath"/>
+	<input type="hidden" asp-for="UserId"/>
+	
+	<div class="form-group">
+		<h2>Select seats</h2>
+		@for (int row = 1; row <= 5; row++)
+		{
+			for (int col = 1; col <= 10; col++)
+			{
+				var seat = Model.TakenSeats.FirstOrDefault(s => s.RowNum == row && s.ColNum == col);
+				if (seat == null)
+				{
+					<input type="checkbox" id="seat-@row-@col" name="Seats" value="@row-@col"/>
+				}
+				else
+				{
+					<input type="checkbox" id="seat-@row-@col" name="Seats" value="@seat.Id" disabled checked/>
+				}
+				@*<label for="seat-@row-@col">Row @row, Column @col</label>*@
+			}
+			<br />
+		}
+	</div>
 	<input class="btn" type="submit" value="Continue"/>
 </form>
 
@@ -35,7 +66,7 @@
 	<script>
 		function calculateTotalPrice() {
 			var totalPrice = 0;
-			var quantityInputs = document.querySelectorAll('input[type="number"][name^="SelectedTicketTypes"]')
+			var quantityInputs = document.querySelectorAll('select[name^="SelectedTickets"]')
 
 			quantityInputs.forEach(function (input) {
 				var quantity = parseInt(input.value);
@@ -48,6 +79,51 @@
 
 			document.getElementById('total-price').innerText = totalPrice.toFixed(2);
 		}
-		
+
+		function validateForm() {
+			var totalTickets = 0;
+			var quantityInputs = document.querySelectorAll('select[name^="SelectedTickets"]');
+
+			quantityInputs.forEach(function (input) {
+				var quantity = parseInt(input.value);
+				if (!isNaN(quantity) && quantity > 0) {
+					totalTickets += quantity;
+				}
+			});
+
+			var totalSeats = 0;
+			var seatInputs = document.querySelectorAll('input[name^="Seats"]:checked');
+
+			totalSeats = seatInputs.length;
+
+			if (totalSeats > totalTickets) {
+				alert('The number of seats selected cannot be higher than the number of tickets.');
+				return false;
+			}
+
+			return true;
+		}
+
+		window.onload = function () {
+			var seatInputs = document.querySelectorAll('input[name^="Seats"]');
+			seatInputs.forEach(function (input) {
+				input.addEventListener('click', function (event) {
+					if (!validateForm()) {
+						event.preventDefault();
+					}
+				});
+			});
+
+			var quantityInputs = document.querySelectorAll('select[name^="SelectedTickets"]');
+			quantityInputs.forEach(function (input) {
+				input.addEventListener('change', function () {
+					seatInputs.forEach(function (seatInput) {
+						if (!seatInput.disabled) {
+							seatInput.checked = false;
+						}
+					});
+				});
+			});
+		}
 	</script>
 }

@@ -42,6 +42,10 @@
             builder.ApplyConfiguration(new MovieConfiguration());
             builder.ApplyConfiguration(new ShowtimeConfiguration());
             builder.ApplyConfiguration(new TicketTypeConfiguration());
+            builder.ApplyConfiguration(new SeatConfiguration());
+            builder.ApplyConfiguration(new BookingConfiguration());
+            builder.ApplyConfiguration(new BookingSeatsConfiguration());
+            builder.ApplyConfiguration(new BookingTicketConfiguration());
 
             builder.Entity<Showtime>()
                 .HasOne(st => st.Movie)
@@ -82,9 +86,6 @@
 	            .WithMany(b => b.BookingSeats)
 	            .HasForeignKey(bs => bs.BookingId)
 	            .OnDelete(DeleteBehavior.Restrict);
-
-            builder.Entity<BookingTicket>()
-	            .HasKey(bt => new { bt.BookingId, bt.TicketTypeId });
 
 			base.OnModelCreating(builder);
         }

@@ -49,6 +49,7 @@
         {
 	        var movie = await _context.Movies
 		        .Include(movie => movie.Genre)
+		        .AsNoTracking()
 		        .FirstOrDefaultAsync(m => m.Id == movieId);
 
 	        if (movie == null)
@@ -87,7 +88,32 @@
 	        return movieDetails;
         }
 
-		private string GetMovieImagePath(int movieId)
+        public async Task<string> GetMovieTitle(int movieId)
+        {
+	        var title = await _context.Movies
+		        .Where(m => m.Id == movieId)
+		        .Select(m => m.Title)
+		        .AsNoTracking()
+		        .SingleOrDefaultAsync();
+
+	        return title!;
+        }
+
+        /// <summary>
+        /// Checks if a showtime exists in the database by its id.
+        /// </summary>
+        /// <param name="showtimeId">The id of the showtime to check.</param>
+        /// <returns>True if the showtime exists, false otherwise.</returns>
+		public async Task<bool> ShowtimeExistsById(int showtimeId)
+        {
+	        bool exists = await _context.Showtimes
+		        .AnyAsync(s => s.Id == showtimeId);
+
+            return exists;
+        }
+
+
+        public string GetMovieImagePath(int movieId)
         {
             string imageFileName = $"{movieId}.jpg";
             string imagePath = Path.Combine(_movieImagesFolderPath, imageFileName);

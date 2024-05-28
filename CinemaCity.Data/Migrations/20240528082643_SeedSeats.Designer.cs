@@ -4,6 +4,7 @@ using CinemaCity.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CinemaCity.Data.Migrations
 {
     [DbContext(typeof(CinemaCityContext))]
-    partial class CinemaCityContextModelSnapshot : ModelSnapshot
+    [Migration("20240528082643_SeedSeats")]
+    partial class SeedSeats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,23 +115,7 @@ namespace CinemaCity.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Bookings", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BookingDate = new DateTime(2024, 5, 28, 11, 36, 12, 0, DateTimeKind.Unspecified),
-                            ShowtimeId = 1,
-                            UserId = "acc2665f-25bd-43f8-87e5-6027c253b3cc"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BookingDate = new DateTime(2024, 5, 28, 11, 40, 12, 0, DateTimeKind.Unspecified),
-                            ShowtimeId = 1,
-                            UserId = "acc2665f-25bd-43f8-87e5-6027c253b3cc"
-                        });
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("CinemaCity.Data.Models.BookingSeat", b =>
@@ -148,33 +135,22 @@ namespace CinemaCity.Data.Migrations
 
                     b.HasIndex("TicketTypeId");
 
-                    b.ToTable("BookingSeats", (string)null);
+                    b.ToTable("BookingSeats");
                 });
 
             modelBuilder.Entity("CinemaCity.Data.Models.BookingTicket", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("BookingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<int>("TicketTypeId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookingId");
+                    b.HasKey("BookingId", "TicketTypeId");
 
                     b.HasIndex("TicketTypeId");
 
-                    b.ToTable("BookingTickets", (string)null);
+                    b.ToTable("BookingTickets");
                 });
 
             modelBuilder.Entity("CinemaCity.Data.Models.Cinema", b =>
@@ -197,7 +173,7 @@ namespace CinemaCity.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cinemas", (string)null);
+                    b.ToTable("Cinemas");
 
                     b.HasData(
                         new
@@ -235,7 +211,7 @@ namespace CinemaCity.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres", (string)null);
+                    b.ToTable("Genres");
 
                     b.HasData(
                         new
@@ -324,7 +300,7 @@ namespace CinemaCity.Data.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
 
                     b.HasData(
                         new
@@ -415,7 +391,7 @@ namespace CinemaCity.Data.Migrations
 
                     b.HasIndex("CinemaId");
 
-                    b.ToTable("Seats", (string)null);
+                    b.ToTable("Seats");
 
                     b.HasData(
                         new
@@ -1493,7 +1469,7 @@ namespace CinemaCity.Data.Migrations
 
                     b.HasIndex("MovieId");
 
-                    b.ToTable("Showtimes", (string)null);
+                    b.ToTable("Showtimes");
 
                     b.HasData(
                         new
@@ -1551,7 +1527,7 @@ namespace CinemaCity.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TicketTypes", (string)null);
+                    b.ToTable("TicketTypes");
 
                     b.HasData(
                         new

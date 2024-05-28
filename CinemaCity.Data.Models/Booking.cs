@@ -25,5 +25,7 @@
         public ApplicationUser User { get; set; } = null!;
 
         public ICollection<BookingSeat> BookingSeats { get; set; } = new List<BookingSeat>();
+
+        public ICollection<BookingTicket> BookingTickets { get; set; } = new List<BookingTicket>();
     }
 }
