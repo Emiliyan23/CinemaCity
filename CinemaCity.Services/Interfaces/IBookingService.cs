@@ -1,6 +1,7 @@
 ﻿namespace CinemaCity.Services.Interfaces
 {
 	using Web.ViewModels;
+	using Web.ViewModels.Booking;
 	using Web.ViewModels.Showtime;
 	using Web.ViewModels.Ticket;
 
@@ -11,5 +12,7 @@
 		Task<SelectedTicketsModel> GetSelectedTicketsModel();
 
 		Task<List<SeatViewModel>> GetAllTakenSeats(int showtimeId);
+
+		Task AddBooking(BookingFormModel model, string userId);
 	}
 }

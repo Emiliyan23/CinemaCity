@@ -1,4 +1,5 @@
 ﻿@model BookingFormModel
+@inject ISeatService _seatService
 
 <form method="post">
 	<div class="form-group">
@@ -36,18 +37,19 @@
 	<input type="hidden" asp-for="MovieTitle"/>
 	<input type="hidden" asp-for="ShowtimeId"/>
 	<input type="hidden" asp-for="ImagePath"/>
-	<input type="hidden" asp-for="UserId"/>
 	
 	<div class="form-group">
 		<h2>Select seats</h2>
 		@for (int row = 1; row <= 5; row++)
 		{
+			<span class="text-light">@row</span>
 			for (int col = 1; col <= 10; col++)
 			{
 				var seat = Model.TakenSeats.FirstOrDefault(s => s.RowNum == row && s.ColNum == col);
 				if (seat == null)
 				{
-					<input type="checkbox" id="seat-@row-@col" name="Seats" value="@row-@col"/>
+					int seatId = await _seatService.GetSeatId(row, col);
+					<input type="checkbox" id="seat-@row-@col" name="SelectedSeats" value="@seatId"/>
 				}
 				else
 				{
@@ -58,7 +60,7 @@
 			<br />
 		}
 	</div>
-	<input class="btn" type="submit" value="Continue"/>
+	<input class="btn btn-success" type="submit" value="Continue"/>
 </form>
 
 @section Scripts
@@ -92,7 +94,7 @@
 			});
 
 			var totalSeats = 0;
-			var seatInputs = document.querySelectorAll('input[name^="Seats"]:checked');
+			var seatInputs = document.querySelectorAll('input[name^="SelectedSeats"]:checked:not(:disabled)');
 
 			totalSeats = seatInputs.length;
 
@@ -105,7 +107,7 @@
 		}
 
 		window.onload = function () {
-			var seatInputs = document.querySelectorAll('input[name^="Seats"]');
+			var seatInputs = document.querySelectorAll('input[name^="SelectedSeats"]');
 			seatInputs.forEach(function (input) {
 				input.addEventListener('click', function (event) {
 					if (!validateForm()) {
@@ -122,6 +124,7 @@
 							seatInput.checked = false;
 						}
 					});
+					validateForm();
 				});
 			});
 		}

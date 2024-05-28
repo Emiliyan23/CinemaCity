@@ -29,7 +29,6 @@
 
 		    BookingFormModel model = new BookingFormModel
 		    {
-			    UserId = User.Id()!,
 			    ShowtimeId = id,
 			    TicketTypes = await _bookingService.GetTicketTypes(),
 			    ImagePath = _movieService.GetMovieImagePath(id),
@@ -51,9 +50,13 @@
 		    if (!ModelState.IsValid)
 		    {
 			    model.TicketTypes = await _bookingService.GetTicketTypes();
+				model.TakenSeats = await _bookingService.GetAllTakenSeats(model.ShowtimeId);
+				model.MovieTitle = await _movieService.GetMovieTitle(model.ShowtimeId);
+				model.ImagePath = _movieService.GetMovieImagePath(model.ShowtimeId);
 			    return View(model);
 		    }
 
+			await _bookingService.AddBooking(model, User.Id()!);
 		    return RedirectToAction("All", "Movie");
 	    }
     }

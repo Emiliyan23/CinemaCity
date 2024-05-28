@@ -27,6 +27,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.Configure<MovieSettings>(builder.Configuration.GetSection("MovieSettings"));
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
+builder.Services.AddScoped<ISeatService, SeatService>();
 
 
 var app = builder.Build();

@@ -14,7 +14,5 @@
 		public string Type { get; set; } = null!;
 
 		public double Price { get; set; }
-
-		public ICollection<BookingSeat> BookingSeats { get; set; } = new List<BookingSeat>();
 	}
 }

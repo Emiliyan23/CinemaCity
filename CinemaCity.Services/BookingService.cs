@@ -3,8 +3,10 @@
 	using Microsoft.EntityFrameworkCore;
 
 	using Data;
+	using Data.Models;
 	using Interfaces;
 	using Web.ViewModels;
+	using Web.ViewModels.Booking;
 	using Web.ViewModels.Showtime;
 	using Web.ViewModels.Ticket;
 
@@ -68,7 +70,43 @@
 				.Select(bs => bs.SeatId)
 				.ToListAsync();
 
-			return allSeats.Where(s => !bookedSeatIds.Contains(s.Id)).ToList();
+			return allSeats.Where(s => bookedSeatIds.Contains(s.Id)).ToList();
+		}
+
+		public async Task AddBooking(BookingFormModel model, string userId)
+		{
+			var booking = new Booking
+			{
+				ShowtimeId = model.ShowtimeId,
+				UserId = userId,
+				BookingDate = DateTime.Now,
+			};
+
+			await _context.Bookings.AddAsync(booking);
+			await _context.SaveChangesAsync();
+
+			int bookingId = booking.Id;
+			var bookingSeats = model.SelectedSeats
+				.Select(s => new BookingSeat
+				{
+					SeatId = s,
+					BookingId = bookingId
+				})
+				.ToList();
+			await _context.BookingSeats.AddRangeAsync(bookingSeats);
+
+			var bookingTickets = model.SelectedTickets.SelectedTickets
+				.Where(t => t.Quantity > 0)
+				.Select(t => new BookingTicket
+				{
+					TicketTypeId = t.TicketId,
+					Quantity = t.Quantity,
+					BookingId = bookingId
+				})
+				.ToList();
+			await _context.BookingTickets.AddRangeAsync(bookingTickets);
+
+			await _context.SaveChangesAsync();
 		}
 	}
 }
