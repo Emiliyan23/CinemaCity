@@ -1,7 +1,7 @@
-﻿namespace CinemaCity.Web.ViewModels
+﻿namespace CinemaCity.Web.ViewModels.Seat
 {
-	public class SeatViewModel
-	{
+    public class SeatViewModel
+    {
         public int Id { get; set; }
 
         public int RowNum { get; set; }

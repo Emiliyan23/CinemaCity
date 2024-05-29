@@ -2,6 +2,8 @@ using CinemaCity.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
+using static CinemaCity.Common.WebConstants;
+
 namespace CinemaCity.Controllers
 {
     public class HomeController : Controller
@@ -15,7 +17,11 @@ namespace CinemaCity.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("All", "Movie");
+	        if (User.IsInRole(AdminRoleName))
+	        {
+		        return RedirectToAction("Index", "Admin", new { area = AreaName });
+	        }
+			return RedirectToAction("All", "Movie");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

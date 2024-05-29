@@ -8,6 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Core" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CinemaCity.Common\CinemaCity.Common.csproj" />
+    <ProjectReference Include="..\CinemaCity.Data.Models\CinemaCity.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

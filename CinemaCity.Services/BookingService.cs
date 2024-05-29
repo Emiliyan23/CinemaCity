@@ -1,16 +1,17 @@
 ﻿namespace CinemaCity.Services
 {
-	using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 
-	using Data;
-	using Data.Models;
-	using Interfaces;
-	using Web.ViewModels;
-	using Web.ViewModels.Booking;
-	using Web.ViewModels.Showtime;
-	using Web.ViewModels.Ticket;
+    using Data;
+    using Data.Models;
+    using Interfaces;
+    using Web.ViewModels;
+    using Web.ViewModels.Booking;
+    using Web.ViewModels.Showtime;
+    using Web.ViewModels.Ticket;
+    using CinemaCity.Web.ViewModels.Seat;
 
-	public class BookingService : IBookingService
+    public class BookingService : IBookingService
 	{
 		private readonly CinemaCityContext _context;
 

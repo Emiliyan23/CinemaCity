@@ -1,9 +1,10 @@
 ﻿namespace CinemaCity.Web.ViewModels.Booking
 {
-	using Showtime;
-	using Ticket;
+    using Seat;
+    using Showtime;
+    using Ticket;
 
-	public class BookingFormModel
+    public class BookingFormModel
 	{
 		public int ShowtimeId { get; set; }
 

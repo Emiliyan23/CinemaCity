@@ -1,11 +1,12 @@
 ﻿namespace CinemaCity.Services.Interfaces
 {
-	using Web.ViewModels;
-	using Web.ViewModels.Booking;
-	using Web.ViewModels.Showtime;
-	using Web.ViewModels.Ticket;
+    using CinemaCity.Web.ViewModels.Seat;
+    using Web.ViewModels;
+    using Web.ViewModels.Booking;
+    using Web.ViewModels.Showtime;
+    using Web.ViewModels.Ticket;
 
-	public interface IBookingService
+    public interface IBookingService
 	{
 		Task<List<TicketViewModel>> GetTicketTypes();
 
