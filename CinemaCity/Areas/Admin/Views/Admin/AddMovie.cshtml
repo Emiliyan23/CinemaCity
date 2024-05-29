@@ -1,0 +1,143 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model MovieFormModel
+@{
+    ViewData["Title"] = "Add Movie";
+}
+
+<div class="row">
+	<div class="col-md-4 offset-md-4">
+		<h1 class="text-center">@ViewData["Title"]</h1>
+		<div class="card">
+			<div class="card-body">
+				<form asp-action="AddMovie" asp-controller="Admin" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<label asp-for="Title"></label>
+						<input asp-for="Title" class="form-control" />
+						<span asp-validation-for="Title" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Description"></label>
+						<input asp-for="Description" class="form-control" />
+						<span asp-validation-for="Description" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="GenreId">Genre</label>
+						<select asp-for="GenreId" class="form-control">
+							@foreach (var genre in Model.Genres)
+							{
+								<option value="@genre.Id">@genre.Name</option>
+							}
+						</select>
+						<span asp-validation-for="GenreId" class="text-danger"></span>
+					</div>		
+
+					<div class="form-group">
+						<label asp-for="Category"></label>
+						<select asp-for="Category" class="form-control">
+							<option value="A">A</option>
+							<option value="B">B</option>
+							<option value="C">C</option>
+							<option value="C+">C+</option>
+							<option value="D">D</option>
+							<option value="D+">D+</option>
+							<option value="X">X</option>
+						</select>
+						<span asp-validation-for="Category" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Audio"></label>
+						<select asp-for="Audio" class="form-control">
+							<option value="EN">EN</option>
+							<option value="BG">BG</option>
+							<option value="Other">Other</option>
+						</select>
+						<span asp-validation-for="Audio" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Subtitles"></label>
+						<select asp-for="Subtitles" class="form-control">
+							<option value="EN">EN</option>
+							<option value="BG">BG</option>
+							<option value="Other">Other</option>
+						</select>
+						<span asp-validation-for="Subtitles" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Rating">Rating (1.0-10.0)</label>
+						<input asp-for="Rating" class="form-control" />
+						<span asp-validation-for="Rating" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Duration">Duration (minutes)</label>
+						<input asp-for="Duration" class="form-control" />
+						<span asp-validation-for="Duration" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Photo">Photo (.jpg)</label>
+						<input asp-for="Photo" type="file" class="form-control" />
+						<span asp-validation-for="Photo" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="ReleaseDate"></label>
+						<input asp-for="ReleaseDate" type="datetime-local" class="form-control" value="@Model.ReleaseDate.ToString("yyyy-MM-ddTHH:mm")" />
+						<span asp-validation-for="ReleaseDate" class="text-danger"></span>
+					</div>
+
+					<br />
+
+					<div class="form-group">
+					@* @for (int i = 0; i < 3; i++)
+					{
+						<p>Showtime @(i+1)</p>
+						<div class="form-group">
+							<label asp-for="Showtimes[i].StartTime">Start Time</label>
+							<input asp-for="Showtimes[i].StartTime" type="datetime-local" class="form-control" value="@Model.ReleaseDate.ToString("yyyy-MM-ddTHH:mm")" />
+							<span asp-validation-for="Showtimes[i].StartTime" class="text-danger"></span>
+						</div>
+
+						<div class="form-group">
+							<label asp-for="Showtimes[i].CinemaId">Cinema</label>
+							<select asp-for="Showtimes[i].CinemaId" class="form-control">
+								@foreach (var cinema in Model.Cinemas)
+								{
+									<option value=@cinema.Id>@cinema.Name</option>
+								}
+							</select>
+						</div>
+						<br />
+					} *@
+						<div class="form-group">
+							<label asp-for="Showtime.StartTime">Start Time</label>
+							<input asp-for="Showtime.StartTime" type="datetime-local" class="form-control" value="@Model.ReleaseDate.ToString("yyyy-MM-ddTHH:mm")" />
+							<span asp-validation-for="Showtime.StartTime" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="Showtime.CinemaId">Cinema</label>
+							<select asp-for="Showtime.CinemaId" class="form-control">
+								@foreach (var cinema in Model.Cinemas)
+								{
+									<option value=@cinema.Id>@cinema.Name</option>
+								}
+							</select>
+						</div>
+					</div>
+					<br />
+					<button type="submit" class="btn btn-primary">Add Movie</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+    
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

@@ -34,7 +34,7 @@ builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<IBookingService, BookingService>();
 builder.Services.AddScoped<ISeatService, SeatService>();
 builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddScoped<ICinemaService, CinemaService>();
 
 var app = builder.Build();
 
@@ -63,7 +63,7 @@ app.UseEndpoints(endpoints =>
 {
 	endpoints.MapControllerRoute(
 		name: "areas",
-		pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
+        pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}"
 	);
 	endpoints.MapControllerRoute(
 		name: "default",

@@ -4,9 +4,11 @@
     using Microsoft.Extensions.Options;
 
     using Data;
+    using Data.Models;
     using Interfaces;
 	using Web.Infrastructure;
     using Web.ViewModels.Cinema;
+    using Web.ViewModels.Genre;
     using Web.ViewModels.Movie;
 	using Web.ViewModels.Showtime;
 
@@ -112,6 +114,56 @@
             return exists;
         }
 
+        public async Task AddMovie(MovieFormModel model)
+        {
+	        Movie movie = new Movie
+	        {
+		        Title = model.Title,
+		        Description = model.Description,
+		        Duration = model.Duration,
+		        Audio = model.Audio,
+		        Category = model.Category,
+		        Rating = model.Rating,
+		        ReleaseDate = model.ReleaseDate,
+		        Subtitles = model.Subtitles,
+		        GenreId = model.GenreId
+	        };
+			await _context.Movies.AddAsync(movie);
+			await _context.SaveChangesAsync();
+
+            Showtime showtime = new Showtime
+			{
+				CinemaId = model.Showtime.CinemaId,
+				MovieId = movie.Id,
+				StartTime = model.Showtime.StartTime
+			};
+
+	        await _context.Showtimes.AddAsync(showtime);
+            await _context.SaveChangesAsync();
+
+            if (model.Photo != null && model.Photo.Length > 0)
+            {
+	            string fileName = $"{movie.Id}.jpg";
+
+				await using (var stream = new FileStream(Path.Combine(_movieImagesFolderPath, fileName), FileMode.Create))
+	            {
+		            await model.Photo.CopyToAsync(stream);
+	            }
+            }
+		}
+
+        public async Task<List<GenreSelectionModel>> GetGenres()
+        {
+	        var genres = await _context.Genres
+		        .Select(g => new GenreSelectionModel
+		        {
+			        Id = g.Id,
+			        Name = g.Name
+		        })
+		        .ToListAsync();
+
+            return genres;
+        }
 
         public string GetMovieImagePath(int movieId)
         {
