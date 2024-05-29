@@ -165,6 +165,17 @@
             return genres;
         }
 
+        public async Task<int> GetMovieIdByShowTimeId(int showtimeId)
+        {
+	        int movieId = await _context.Showtimes
+		        .Where(s => s.Id == showtimeId)
+		        .AsNoTracking()
+				.Select(s => s.MovieId)
+		        .SingleOrDefaultAsync();
+
+			return movieId;
+        }
+
         public string GetMovieImagePath(int movieId)
         {
             string imageFileName = $"{movieId}.jpg";

@@ -27,12 +27,14 @@
 			    return RedirectToAction("All", "Movie");
 		    }
 
-		    BookingFormModel model = new BookingFormModel
+		    int movieId = await _movieService.GetMovieIdByShowTimeId(id);
+
+			BookingFormModel model = new BookingFormModel
 		    {
 			    ShowtimeId = id,
 			    TicketTypes = await _bookingService.GetTicketTypes(),
-			    ImagePath = _movieService.GetMovieImagePath(id),
-			    MovieTitle = await _movieService.GetMovieTitle(id),
+			    ImagePath = _movieService.GetMovieImagePath(movieId),
+			    MovieTitle = await _movieService.GetMovieTitle(movieId),
 				TakenSeats = await _bookingService.GetAllTakenSeats(id)
 		    };
 
@@ -45,15 +47,6 @@
 		    if (model.SelectedTickets.SelectedTickets.All(t => t.Quantity == 0))
 		    {
 			    ModelState.AddModelError("SelectedTicketTypes", "Please select at least one ticket.");
-		    }
-
-		    if (!ModelState.IsValid)
-		    {
-			    model.TicketTypes = await _bookingService.GetTicketTypes();
-				model.TakenSeats = await _bookingService.GetAllTakenSeats(model.ShowtimeId);
-				model.MovieTitle = await _movieService.GetMovieTitle(model.ShowtimeId);
-				model.ImagePath = _movieService.GetMovieImagePath(model.ShowtimeId);
-			    return View(model);
 		    }
 
 			await _bookingService.AddBooking(model, User.Id()!);

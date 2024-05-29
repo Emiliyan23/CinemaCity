@@ -22,7 +22,7 @@ body {
     background-color: rgba(47, 47, 47, 1);
 }
 
-p, h1, h2, label {
+p, h1, h2, h4, label {
     color: white;
 }
 

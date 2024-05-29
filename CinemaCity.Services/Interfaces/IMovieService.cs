@@ -17,6 +17,8 @@
 
         Task<List<GenreSelectionModel>> GetGenres();
 
+        Task<int> GetMovieIdByShowTimeId(int showtimeId);
+
         public string GetMovieImagePath(int movieId);
     }
 }

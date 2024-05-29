@@ -2,25 +2,68 @@
 @{
 	ViewData["Title"] = "Movie Details";
 }
-<p>@Model.Title</p>
-<p>@Model.Description</p>
-<img src="@Model.ImagePath" alt="@Model.Title" />
-@if (!Model.Cinemas.Any())
-{
-	<p>This movie is not currently available.</p>
-}
-else
-{
-	@foreach (var cinema in Model.Cinemas)
+<div class="container" style="display: inline;">
+	<div class="row">
+		<h1>@Model.Title</h1>
+		<div class="col-md-auto">
+			<img src="@Model.ImagePath" alt="@Model.Title"/>
+		</div>
+		<div class="col">
+			<div class="row">
+				<div class="col-md-auto">
+					<p>Duration:</p>
+					<p>Audio:</p>
+					<p>Category:</p>
+					<p>Rating:</p>
+					<p>Subtitles:</p>
+					<p>Genre:</p>
+					<p>Description:</p>
+				</div>
+				<div class="col">
+					<p>@Model.Duration minutes</p>
+					<p>@Model.Audio</p>
+					<p>@Model.Category</p>
+					<p>@Model.Rating</p>
+					<p>@Model.Subtitles</p>
+					<p>@Model.Genre</p>
+					<p>@Model.Description</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br/>
+	@if (!Model.Cinemas.Any())
 	{
-		<h2>@cinema.Name</h2>
-		<p>@cinema.Location</p>
-		<p>Showtimes:</p>
-		@foreach (var showtime in cinema.Showtimes)
-		{
-			<p>@showtime.StartTime</p>
-			<a asp-controller="Booking" asp-action="SelectTickets" asp-route-id="@showtime.Id" class="btn btn-success">Book now</a>
-		}
-		<hr/>
+		<p>This movie is not currently available.</p>
 	}
-}
+	else
+	{
+		<table class="table table-dark table-striped">
+			<thead>
+			<tr>
+				<th scope="col">Cinema</th>
+				<th scope="col">Location</th>
+				<th scope="col">Showtimes</th>
+			</tr>
+			</thead>
+			<tbody>
+			@foreach (var cinema in Model.Cinemas)
+			{
+				<tr>
+					<th scope="row">@cinema.Name</th>
+					<th>@cinema.Location</th>
+					<td>
+						@foreach (var showtime in cinema.Showtimes)
+						{
+							<span>@showtime.StartTime</span>
+							<a asp-controller="Booking" asp-action="SelectTickets" asp-route-id="@showtime.Id" class="btn btn-danger">Book now</a>
+							<p></p>
+						}
+					</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	}
+</div>
+

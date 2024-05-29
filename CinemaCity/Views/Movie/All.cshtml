@@ -3,13 +3,19 @@
 	ViewData["Title"] = "All Movies";
 }
 
-<p>@ViewData["Title"]</p>
+<h1>All Movies</h1>
 
-@foreach (var movie in Model)
-{
-	<div>
-		<h2>@movie.Title</h2>
-		<img src="@movie.ImagePath" alt="@movie.Title" />
-		<a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-success">Details</a>
-	</div>
-}
+<div class="row">
+	@foreach (var movie in Model)
+	{
+		<div class="col-md-4">
+			<div class="card mb3" style="width: 17rem;">
+				<img class="card-img-top" src="@movie.ImagePath" alt="@movie.Title"/>
+				<div class="card-body text-center">
+					<h4>@movie.Title</h4>
+					<a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-danger">Details</a>
+				</div>
+			</div>
+		</div>
+	}
+</div>

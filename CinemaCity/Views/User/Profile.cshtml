@@ -6,7 +6,7 @@
 }
 else
 {
-	<h2>Bookings</h2>
+	<h2>My bookings</h2>
 	<table class="table table-dark table-striped">
 		<thead>
 			<tr>
@@ -25,16 +25,11 @@ else
 					<td>@booking.MovieName</td>
 					<td>@booking.ShowtimeStart</td>
 					<td>@booking.BookingTime</td>
-					<td>@foreach (var seat in booking.SelectedSeats)
-					    {
-						    <span>Row @seat.RowNum</span>
-						    <span>Col @seat.ColNum,</span>
-					    }
+					<td>
+						@Html.Raw(string.Join(", ", booking.SelectedSeats.Select(seat => $"Row {seat.RowNum} Col {seat.ColNum}")))
 					</td>
-					<td>@foreach (var ticket in booking.SelectedTickets)
-					    {
-						    <span>@ticket.Type - @ticket.Quantity,</span>
-					    }
+					<td>
+						@Html.Raw(string.Join(", ", booking.SelectedTickets.Select(ticket => $"{ticket.Type} - {ticket.Quantity}")))
 					</td>
 					<td>
 						@booking.SelectedTickets.Sum(t => t.Price * t.Quantity).ToString("F") лв.
