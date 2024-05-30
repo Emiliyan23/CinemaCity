@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore;
 
     using Configurations;
+    using Microsoft.AspNetCore.Identity;
     using Models;
 
     public class CinemaCityContext : IdentityDbContext<ApplicationUser>
@@ -37,13 +38,47 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            var adminUser = new ApplicationUser
+            {
+                UserName = "admin@admin.com",
+                NormalizedUserName = "ADMIN@ADMIN.COM",
+                Email = "admin@admin.com",
+                NormalizedEmail = "ADMIN@ADMIN.COM",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            var passwordHasher = new PasswordHasher<ApplicationUser>();
+            adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, "admin123");
+
+            builder.Entity<ApplicationUser>().HasData(adminUser);
+
+
             builder.ApplyConfiguration(new CinemaConfiguration());
             builder.ApplyConfiguration(new GenreConfiguration());
             builder.ApplyConfiguration(new MovieConfiguration());
             builder.ApplyConfiguration(new ShowtimeConfiguration());
             builder.ApplyConfiguration(new TicketTypeConfiguration());
             builder.ApplyConfiguration(new SeatConfiguration());
-            builder.ApplyConfiguration(new BookingConfiguration());
+
+            builder.Entity<Booking>().HasData(
+                new Booking
+                {
+                    Id = 1,
+                    BookingDate = new DateTime(2024, 5, 30, 10, 36, 00),
+                    ShowtimeId = 1,
+                    UserId = adminUser.Id
+                },
+                new Booking
+                {
+                    Id = 2,
+                    BookingDate = new DateTime(2024, 5, 29, 11, 40, 0),
+                    ShowtimeId = 7,
+                    UserId = adminUser.Id
+                }
+			);
+
             builder.ApplyConfiguration(new BookingSeatsConfiguration());
             builder.ApplyConfiguration(new BookingTicketConfiguration());
 

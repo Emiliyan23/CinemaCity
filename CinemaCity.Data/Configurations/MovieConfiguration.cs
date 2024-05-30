@@ -80,8 +80,21 @@
                     Subtitles = "BG",
                     GenreId = 7,
                     Description = "Kid, an anonymous young man who ekes out a meager living in an underground fight club where, night after night, wearing a gorilla mask, he is beaten bloody by more popular fighters for cash. After years of suppressed rage, Kid discovers a way to infiltrate the enclave of the city’s sinister elite. As his childhood trauma boils over, his mysteriously scarred hands unleash an explosive campaign of retribution to settle the score with the men who took everything from him."
+                },
+                new Movie
+                {
+	                Id = 6,
+	                Title = "The Garfield Movie",
+	                Duration= 101,
+	                Audio = "EN",
+	                Category = "B",
+	                Rating = 5.9,
+	                ReleaseDate = new DateTime(2024, 5, 24),
+	                Subtitles = "BG",
+	                GenreId = 2,
+	                Description = "After Garfield's unexpected reunion with his long-lost father, ragged alley cat Vic, he and his canine friend Odie are forced from their perfectly pampered lives to join Vic on a risky heist.\r\n\r\n"
                 }
-            };
+			};
 
             return movies;
         }

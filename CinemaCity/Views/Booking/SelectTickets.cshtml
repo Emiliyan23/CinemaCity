@@ -1,5 +1,9 @@
 ﻿@model BookingFormModel
 @inject ISeatService _seatService
+@{
+	ViewData["Title"] = "Select tickets";
+}
+
 
 <div class="container">
 	<div class="row">
@@ -114,6 +118,12 @@
 
 			if (totalSeats !== totalTickets) {
 				alert('The number of seats selected must match the number of tickets.');
+				return false;
+			}
+
+			// Check if at least one ticket and one seat is selected
+			if (totalTickets === 0 || totalSeats === 0) {
+				alert('You must select at least one ticket and one seat.');
 				return false;
 			}
 

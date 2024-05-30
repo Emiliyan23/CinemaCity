@@ -24,9 +24,9 @@
                 },
                 new Cinema
                 {
-                Id = 2,
-                CinemaName = "Cinema City - Varna",
-                Location = "Grand Mall Varna"
+					Id = 2,
+					CinemaName = "Cinema City - Varna",
+					Location = "Grand Mall Varna"
                 },
                 new Cinema
                 {

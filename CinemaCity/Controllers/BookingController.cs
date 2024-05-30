@@ -50,7 +50,13 @@
 		    }
 
 			await _bookingService.AddBooking(model, User.Id()!);
-		    return RedirectToAction("All", "Movie");
+		    return RedirectToAction("BookingSuccess");
+	    }
+
+	    [HttpGet]
+	    public IActionResult BookingSuccess()
+	    {
+			return View();
 	    }
     }
 }
