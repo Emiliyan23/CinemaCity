@@ -9,24 +9,86 @@
 			<img src="@Model.ImagePath" alt="@Model.Title"/>
 		</div>
 		<div class="col">
+			<br/>
 			<div class="row">
 				<div class="col-md-auto">
-					<p>Duration:</p>
-					<p>Audio:</p>
-					<p>Category:</p>
-					<p>Rating:</p>
-					<p>Subtitles:</p>
-					<p>Genre:</p>
-					<p>Description:</p>
-				</div>
-				<div class="col">
-					<p>@Model.Duration minutes</p>
-					<p>@Model.Audio</p>
-					<p>@Model.Category</p>
-					<p>@Model.Rating</p>
-					<p>@Model.Subtitles</p>
-					<p>@Model.Genre</p>
-					<p>@Model.Description</p>
+					<div class="row mb-3">
+						<div class="col-2">
+							<span class="d-flex align-items-center gap-3 mb-3">
+								<i class="bi bi-clock icon"></i>
+								<p class="mb-0">Duration:</p>
+							</span>
+						</div>
+						<div class="col d-flex align-items-center">
+							<p>@Model.Duration minutes</p>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-2">
+							<span class="d-flex align-items-center gap-3 mb-3">
+								<i class="bi bi-volume-up icon"></i>
+								<p class="mb-0">Audio:</p>
+							</span>
+						</div>
+						<div class="col d-flex align-items-center">
+							<p>@Model.Audio</p>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-2">
+							<span class="d-flex align-items-center gap-3 mb-3">
+								<i class="bi bi-tag icon"></i>
+								<p class="mb-0">Category:</p>
+							</span>
+						</div>
+						<div class="col d-flex align-items-center">
+							<p>@Model.Category</p>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-2">
+							<span class="d-flex align-items-center gap-3 mb-3">
+								<i class="bi bi-star icon"></i>
+								<p class="mb-0">Rating:</p>
+							</span>
+						</div>
+						<div class="col d-flex align-items-center mb-3">
+							<p>@Model.Rating</p>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-2">
+							<span class="d-flex align-items-center gap-3 mb-3">
+								<i class="bi bi-chat-text icon"></i>
+								<p class="mb-0">Subtitles:</p>
+							</span>
+						</div>
+						<div class="col d-flex align-items-center">
+							<p>@Model.Subtitles</p>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-2">
+							<span class="d-flex align-items-center gap-3 mb-3">
+								<i class="bi bi-book icon"></i>
+								<p class="mb-0">Genre:</p>
+							</span>
+						</div>
+						<div class="col d-flex align-items-center">
+							<p>@Model.Genre</p>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col-2">
+							<span class="d-flex align-items-center gap-3 mb-3">
+								<i class="bi bi-info-circle icon"></i>
+								<p class="mb-0">Description:</p>
+							</span>
+						</div>
+						<div class="col d-flex align-items-center">
+							<p>@Model.Description</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

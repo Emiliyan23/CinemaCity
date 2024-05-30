@@ -42,3 +42,13 @@ p, h1, h2, h4, label {
 .card {
     background-color: rgba(76, 76, 76, 1);
 }
+
+#logo {
+    width: 500px;
+    height: 500px;
+}
+
+.icon {
+    color: white;
+    font-size: 24px;
+}

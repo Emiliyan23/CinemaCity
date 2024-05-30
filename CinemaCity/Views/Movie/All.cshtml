@@ -5,7 +5,7 @@
 
 <h1>All Movies</h1>
 
-<div class="row">
+<div class="row row-eq-height">
 	@foreach (var movie in Model)
 	{
 		<div class="col-md-4">
@@ -13,7 +13,7 @@
 				<img class="card-img-top" src="@movie.ImagePath" alt="@movie.Title"/>
 				<div class="card-body text-center">
 					<h4>@movie.Title</h4>
-					<a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-danger">Details</a>
+					<a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.Id" class="btn btn-danger shadow-none">Details</a>
 				</div>
 			</div>
 		</div>

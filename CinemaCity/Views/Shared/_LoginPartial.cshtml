@@ -6,8 +6,8 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-	<li class="nav-item dropdown text-light">
-		<a class="btn dropdown-toggle" href="#" role="button"
+	<li class="nav-item dropdown">
+		<a class="btn dropdown-toggle text-light shadow-none" href="#" role="button"
 		   id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
 			@User.Identity?.Name
 		</a>
